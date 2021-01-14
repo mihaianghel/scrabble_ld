@@ -44,38 +44,85 @@ class Scrabble_Best_Move_Unit_Test(unittest.TestCase):
         self.assertEqual(vertical_words[0]['word'], 'men')
         self.assertEqual(vertical_words[1]['word'], 'cat')
 
-    def test_get_best_move_two_moves(self):
+    def test_get_best_move_one_move_vertical(self):
 
         # Horizontal word top left
         # given
         wor = [('cider', 2)]
-        wob = [{'word': 'car', 'x': 1, 'y': 1, 'isHorizontal': True}]
+        wob = [{'word': 'car', 'x': 1, 'y': 0, 'is_horizontal': True}]
         dictionary = {'acir': ['icar', 'cari']}
+        board = [['-', '-', '-', '-', '-'],
+                 ['c', 'a', 'r', '-', '-'],
+                 ['-', '-', '-', '-', '-'],
+                 ['-', '-', '-', '-', '-'],
+                 ['-', '-', '-', '-', '-']]
 
         # when
-        result = sb.get_best_move(wor, wob, dictionary)
-
-        # then
-        self.assertEqual(len(result), 2)
-        self.assertEqual(result[0]['x'], 0)
-        self.assertEqual(result[0]['y'], 0)
-        self.assertEqual(result[1]['x'], 0)
-        self.assertEqual(result[1]['y'], 4)
-
-    def test_get_best_move_one_moves(self):
-        # Vertical word bottom left
-        # given
-        wor = [('cider', 2)]
-        wob = [{'word': 'car', 'x': 12, 'y': 11, 'isHorizontal': False}]
-        dictionary = {'acir': ['icar', 'cari']}
-
-        # when
-        result = sb.get_best_move(wor, wob, dictionary)
+        result = sb.get_best_move(board, wor, wob, dictionary)
 
         # then
         self.assertEqual(len(result), 1)
-        self.assertEqual(result[0]['x'], 11)
-        self.assertEqual(result[0]['y'], 10)
+        self.assertEqual(result[0]['x'], 0)
+        self.assertEqual(result[0]['y'], 3)
+
+    def test_get_best_move_collision(self):
+
+        # Horizontal word top left
+        # given
+        wor = [('cider', 2)]
+        wob = [{'word': 'car', 'x': 1, 'y': 0, 'is_horizontal': True}]
+        dictionary = {'acir': ['icar', 'cari']}
+        board = [['-', '-', '-', '-', '-'],
+                 ['c', 'a', 'r', '-', '-'],
+                 ['-', 'r', '-', '-', '-'],
+                 ['-', 'm', '-', '-', '-'],
+                 ['-', 'y', 'e', 's', '-']]
+
+        # when
+        result = sb.get_best_move(board, wor, wob, dictionary)
+
+        # then
+        self.assertEqual(len(result), 0)
+
+    def test_get_best_move_one_move_horizontal(self):
+        # Vertical word bottom left
+        # given
+        wor = [('cider', 2)]
+        wob = [{'word': 'car', 'x': 3, 'y': 2, 'is_horizontal': False}]
+        dictionary = {'acir': ['icar', 'cari']}
+        board = [['-', '-', '-', '-', '-', '-'],
+                 ['-', '-', '-', '-', '-', '-'],
+                 ['-', '-', '-', '-', '-', '-'],
+                 ['-', '-', 'c', '-', '-', '-'],
+                 ['-', '-', 'a', '-', '-', '-'],
+                 ['-', '-', 'r', '-', '-', '-']]
+
+        # when
+        result = sb.get_best_move(board, wor, wob, dictionary)
+
+        # then
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['x'], 2)
+        self.assertEqual(result[0]['y'], 1)
+
+    def test_get_best_move_no_move(self):
+
+        # Horizontal word top left
+        # given
+        wor = [('cider', 2)]
+        wob = [{'word': 'car', 'x': 1, 'y': 0, 'is_horizontal': True}]
+        dictionary = {'acir': ['icar', 'cari']}
+        board = [['-', '-', '-', '-'],
+                 ['c', 'a', 'r', '-'],
+                 ['-', '-', '-', '-'],
+                 ['-', '-', '-', '-']]
+
+        # when
+        result = sb.get_best_move(board, wor, wob, dictionary)
+
+        # then
+        self.assertEqual(len(result), 0)
+
 
 if __name__ == '__main__':
     unittest.main()

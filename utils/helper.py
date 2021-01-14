@@ -14,20 +14,20 @@ points = {"e": 1, "a": 1, "i": 1, "o": 1, "n": 1,
 
 def validate_characters(c):
     if not (c == '-' or c.isalpha()):
-        print('Invalid characters on the board')
-        exit()
+        raise Exception('Invalid characters on the board')
 
 
 def validate_size_of_board(line):
     if len(line) != 15:
-        print('Invalid size of the board')
-        exit()
+        raise Exception('Invalid size of the board')
 
 
-def validate_size_of_rack(tiles):
+def validate_rack(tiles):
     if len(tiles) != 7:
-        print('Invalid size of the rack')
-        exit()
+        raise Exception("Invalid size of the rack")
+    for c in tiles:
+        if not c.isalpha():
+            raise Exception("Invalid tiles on rack")
 
 
 def get_score(word):

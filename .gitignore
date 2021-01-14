@@ -1,2 +1,5 @@
 .idea
-.*iml
+*.iml
+*.pyc
+*.answer
+venv/

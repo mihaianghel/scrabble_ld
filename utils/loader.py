@@ -33,12 +33,11 @@ def load_current_game_state_and_validate_input(filename):
         # rack line
         if x == 15:
             tiles = line
-            helper.validate_size_of_rack(tiles)
+            helper.validate_rack(tiles)
             break
         # too many lines
         elif x > 16:
-            print('Invalid size of the board')
-            exit()
+            raise Exception('Invalid size of the board')
         y = 0
         # first 15 lines
         for c in line:
