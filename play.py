@@ -9,9 +9,9 @@ def main(argv):
         print('Please specify the input file')
         exit()
 
-    sc.play(input_file, "resources/dict.txt")
+    best_move = sc.play(input_file, "resources/dict.txt")
+    print(best_move)
 
 
 if __name__ == "__main__":
     main(sys.argv)
-

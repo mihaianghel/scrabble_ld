@@ -45,7 +45,7 @@ Approach for the implementation
 
 1. The file `dict.txt` is loaded from the memory, and a map of anagrams is built. One entry in the map could look like
    `{'acr': ['car', 'arc']}` assuming that `car` and `arc` are valid words in the dictionary.
-2. Load the state of the game from the output file. This creates a `board` object and a `tiles` objects with acts as the
+2. Load the state of the game from the output file. This creates a `board` structure and a `tiles` structure with acts as the
    rack of tiles.
 3. Using the rack of 7 tiles, combinations of 2,3...7 letters are created (120) and checked against the dictionary if there 
    are any valid words to be created. An array of tuples `[(word, score)]` is created.

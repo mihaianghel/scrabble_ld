@@ -24,7 +24,7 @@ def find_highest_scoring_words(available_tiles, dictionary):
 def get_words_from_the_board(board, is_horizontal):
     x = 0
     words_on_board = []
-    # visit rows
+
     for row in board:
         row_str = (''.join(row))
         for w in re.split('-+', row_str):
@@ -42,7 +42,7 @@ def get_words_from_the_board(board, is_horizontal):
                         "is_horizontal": is_horizontal
                 }
                 words_on_board.append(w_on_board)
-        x = x + 1
+        x += 1
     return words_on_board
 
 
@@ -50,16 +50,16 @@ def check_word_fits_on_board(board, x, y, word_len, is_horizontal):
     x_coord = x
     y_coord = y
     board_size = len(board) - 1
+
     for i in range(word_len):
         if x_coord < 0 or x_coord > board_size \
                 or y_coord < 0 or y_coord > board_size \
                 or board[x_coord][y_coord] != '-':
             return False
         if is_horizontal:
-            y_coord = y_coord + 1
+            y_coord += 1
         else:
-            x_coord = x_coord + 1
-
+            x_coord += 1
     return True
 
 
@@ -118,7 +118,7 @@ def get_best_move(board, words_on_rack, words_on_board, dictionary):
                             words.append({'word': wor[0], 'score': wor[1] + helper.get_score(new_word),
                                           'is_horizontal': False, 'x': x_coord, 'y': y_coord})
 
-                x = x + 1
+                x += 1
     return words
 
 
@@ -146,12 +146,10 @@ def play(input_file, dict_file):
         if w["score"] >= best_move["score"]:
             best_move = w
 
-    # Print output file in the format (13,1,true,yay)
+    # Print output to file in the format (13,1,true,yay)
     f = open(input_file + '.answer', 'w')
-    result = str((best_move["x"], best_move["y"], not(best_move["is_horizontal"]), best_move["word"])).lower().replace("'", "")
-    f.write(result)
+    best_move = str((best_move["x"], best_move["y"], not(best_move["is_horizontal"]), best_move["word"])).lower().replace("'", "")
+    f.write(best_move)
     f.close()
 
-    print(result)
-
-
+    return best_move

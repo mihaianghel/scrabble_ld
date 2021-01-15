@@ -44,8 +44,8 @@ def load_current_game_state_and_validate_input(filename):
             helper.validate_size_of_board(line)
             helper.validate_characters(c)
             board[x][y] = c
-            y = y + 1
-        x = x + 1
+            y += 1
+        x += 1
     game_state = {
         "board": board,
         "tiles": tiles
